@@ -1,0 +1,1 @@
+export const BASEURL = 'http://127.0.0.1:5001/api/v1/zhik/store/commerce/'
