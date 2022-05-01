@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 // vendors
 import './assets/vendor/bootstrap/css/bootstrap.min.css';

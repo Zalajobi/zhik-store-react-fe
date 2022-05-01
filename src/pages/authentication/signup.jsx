@@ -16,6 +16,7 @@ import {FormControl, InputLabel, MenuItem, Select, Stack} from "@mui/material";
 import {handlePostRequest} from "../../helper/requests";
 import {BASEURL} from "../../helper/constants";
 import {useHistory} from 'react-router-dom'
+import {toast} from "react-toastify";
 const theme = createTheme();
 
 function SignUp() {
@@ -25,7 +26,15 @@ function SignUp() {
 		event.preventDefault();
 		const response = await handlePostRequest(new FormData(event.currentTarget), `${BASEURL}user/signup`)
 		if(response.status === 200){
-			alert('Login successful')
+			toast.success(`${response.data}`, {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 			history.push("/login")
 		}else{
 			alert(response.data)
@@ -106,7 +115,7 @@ function SignUp() {
 
 						<Grid container justifyContent="flex-end">
 							<Grid item>
-								<Link href={"/user/login"} variant="body2">Already have an account? Sign in</Link>
+								<Link href={"/login"} variant="body2">Already have an account? Sign in</Link>
 							</Grid>
 						</Grid>
 					</Box>
