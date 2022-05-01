@@ -5,7 +5,7 @@ import { Container, Typography, Avatar, Button, FormControl, InputLabel, MenuIte
 import {handlePostRequest} from "../../helper/requests";
 import {BASEURL} from "../../helper/constants";
 import {useHistory} from 'react-router-dom'
-import {toast} from "react-toastify";
+import { successColoredTopCenter } from "../../components/common/Beautify/Alert";
 const theme = createTheme();
 
 function SignUp() {
@@ -15,15 +15,7 @@ function SignUp() {
 		event.preventDefault();
 		const response = await handlePostRequest(new FormData(event.currentTarget), `${BASEURL}user/signup`)
 		if(response.status === 200){
-			toast.success(`${response.data}`, {
-				position: "top-center",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			{successColoredTopCenter(response.data)}
 			history.push("/login")
 		}else{
 			alert(response.data)

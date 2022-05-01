@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import { Provider } from 'react-redux';
 import './App.css';
-import 'react-toastify/dist/ReactToastify.css';
 
 // vendors
 import './assets/vendor/bootstrap/css/bootstrap.min.css';
@@ -23,6 +22,9 @@ import './assets/fonts/linearicons-v1.0.0/icon-font.min.css'
 import './assets/css/common/main.css'
 import './assets/css/common/util.css'
 
+// import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 import IndexPage from "./pages";
 import UserProfile from "./pages/user/UserProfile";
 import SignIn from "./pages/authentication/login";
@@ -34,7 +36,8 @@ function App() {
     return (
         // <Provider store={store}>
             <Router>
-                <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
+                <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
+                                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
                 <Switch>
                     <Route exact path="/" component={IndexPage}/>
 

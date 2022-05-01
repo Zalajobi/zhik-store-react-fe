@@ -5,6 +5,7 @@ import ViewProfile from "../../components/profile/ViewProfile";
 import {handleGetRequest} from "../../helper/requests";
 import {BASEURL} from "../../helper/constants";
 import PreLoader from "../../components/common/preloader/PreLoader";
+import {infoColoredTopCenter} from "../../components/common/Beautify/Alert";
 // import AuthToken from "../../helper/contextApi";
 // import {getAuthToken, selectAuthToken} from "../../redux/Reducers";
 
@@ -17,6 +18,7 @@ const UserProfile = (props) => {
     useEffect(() => {
         // console.log(AuthToken.token)
         // console.log(`Here is ur Token ${token}`)
+        {infoColoredTopCenter('Hello Zhikrullah')}
         const fetchData = async () => {
             setLoading(true);
 
