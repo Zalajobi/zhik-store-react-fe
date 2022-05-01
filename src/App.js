@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import { Provider } from 'react-redux';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -27,33 +28,34 @@ import UserProfile from "./pages/user/UserProfile";
 import SignIn from "./pages/authentication/login";
 import Signup from "./pages/authentication/signup";
 import {ToastContainer} from "react-toastify";
+// import store from "./store";
 
 function App() {
     return (
-        <Router>
-            <ToastContainer
-                position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
-            <Switch>
-                <Route exact path="/" component={IndexPage}/>
+        // <Provider store={store}>
+            <Router>
+                <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
+                <Switch>
+                    <Route exact path="/" component={IndexPage}/>
 
-                <Route path="/user/profile">
-                    <UserProfile />
-                </Route>
+                    <Route path="/user/profile">
+                        <UserProfile />
+                    </Route>
 
-                <Route path="/login">
-                    <SignIn/>
-                </Route>
+                    <Route path="/login">
+                        <SignIn/>
+                    </Route>
 
-                <Route path="/user/signup">
-                    <Signup/>
-                </Route>
+                    <Route path="/user/signup">
+                        <Signup/>
+                    </Route>
 
-                <Route path="/dashboard">
-                    {/*<Dashboard />*/}
-                </Route>
-            </Switch>
-        </Router>
+                    <Route path="/dashboard">
+                        {/*<Dashboard />*/}
+                    </Route>
+                </Switch>
+            </Router>
+        // </Provider>
     );
 }
 
