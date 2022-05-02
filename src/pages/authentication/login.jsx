@@ -3,24 +3,34 @@ import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Lin
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useDispatch} from "react-redux";
-import {handlePostRequest} from "../../helper/requests";
+import { handlePostRequest } from "../../helper/requests";
 import {BASEURL} from "../../helper/constants";
 // import AuthToken from "../../helper/contextApi";
 import {authorizationToken} from "../../redux/Reducers";
+import {useHistory} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
 const theme = createTheme();
 
 function SignIn() {
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const dispatch = useDispatch();
+    const history = useHistory()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const response = await handlePostRequest(new FormData(event.currentTarget), `${BASEURL}user/login`)
-        sessionStorage.setItem('authToken', response.data.access_token)
 
-        dispatch(authorizationToken(response.data.access_token))
-        console.log(response.data.access_token)
-        // AuthToken.token = response.data.access_token;
+        if (response.status === 200) {
+            console.log(response.data.access_token)
+            sessionStorage.setItem('authToken', response.data.access_token)
+            // enqueueSnackbar(response.data, {variant: 'success', preventDuplicate: true,});
+            // dispatch(authorizationToken(response.data.access_token))
+
+
+            setTimeout(() => {history.push("/user/profile")}, 3000)
+            // AuthToken.token = response.data.access_token;
+        }
     };
 
     return (

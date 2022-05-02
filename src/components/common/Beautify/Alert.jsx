@@ -1,4 +1,5 @@
 import {toast} from "react-toastify";
+import { useSnackbar } from 'notistack'
 
 const topCenterColored = {
 	position: "top-center",
@@ -9,6 +10,8 @@ const topCenterColored = {
 	draggable: true,
 	progress: undefined,
 }
+
+// const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 export const successColoredTopCenter = (title) => {toast.success(title, topCenterColored)}
 

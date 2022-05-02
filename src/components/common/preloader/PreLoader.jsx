@@ -1,7 +1,7 @@
 import React from 'react'
 import './preloader.css'
 
-const PreLoader = (props) => {
+export const TreePreLoader = (props) => {
   return (
 	  <React.Fragment>
 		  <svg x="0" y="0" width="258" height="258">
@@ -97,5 +97,3 @@ const PreLoader = (props) => {
 	  </React.Fragment>
   )
 }
-
-export default PreLoader

@@ -36,8 +36,8 @@ function App() {
     return (
         // <Provider store={store}>
             <Router>
-                <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
+                {/*<ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}*/}
+                {/*                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>*/}
                 <Switch>
                     <Route exact path="/" component={IndexPage}/>
 
