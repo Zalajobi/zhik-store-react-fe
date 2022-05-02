@@ -1,7 +1,14 @@
 import axios from 'axios'
 
-export async function handlePostRequest(bodyFormData, url) {
-	return await axios.post(url, bodyFormData)
+export async function handlePostRequest(bodyFormData, url, authToken) {
+	if (authToken)
+		return await axios.post(url, bodyFormData, {
+			headers: {
+				'Authorization': `Bearer ${authToken}`
+			}
+		})
+	else
+		return await axios.post(url, bodyFormData)
 	// axios({
 	// 	method: method,
 	// 	url: `${BASEURL}${url}`,
@@ -14,4 +21,23 @@ export async function handlePostRequest(bodyFormData, url) {
 	// .catch(function (response) {
     //     return response
     // });
+}
+
+export async function handleGetRequest(url,  authToken) {
+	return await axios.get(url, {
+		headers: {
+			'Authorization': `Bearer ${authToken}`
+		}
+	})
+}
+
+export async function handleDeleteRequest(url, jsonData, authToken) {
+	return await axios.delete(url, {
+		headers: {
+			'Authorization': `Bearer ${authToken}`
+		},
+		data: {
+			id: jsonData
+		}
+	})
 }

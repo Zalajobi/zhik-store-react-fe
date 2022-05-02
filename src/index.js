@@ -1,15 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { Zoom } from '@mui/material';
+import ReactDOM from 'react-dom/client'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import store from './store';
+import { Provider } from 'react-redux';
+import { SnackbarProvider } from 'notistack'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+    <Provider store={store}>
+        <SnackbarProvider anchorOrigin={{vertical: 'top', horizontal: 'center',}} TransitionComponent={Zoom}>
+            <App />
+        </SnackbarProvider>
+    </Provider>
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

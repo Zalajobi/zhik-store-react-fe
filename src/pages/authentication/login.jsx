@@ -1,26 +1,36 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {handlePostRequest} from "../../helper/requests";
+import {useDispatch} from "react-redux";
+import { handlePostRequest } from "../../helper/requests";
+import {BASEURL} from "../../helper/constants";
+// import AuthToken from "../../helper/contextApi";
+import {authorizationToken} from "../../redux/Reducers";
+import {useHistory} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
 const theme = createTheme();
 
 function SignIn() {
-    const handleSubmit = (event) => {
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const dispatch = useDispatch();
+    const history = useHistory()
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        handlePostRequest(data, 'user/login', 'POST')
+        const response = await handlePostRequest(new FormData(event.currentTarget), `${BASEURL}user/login`)
+
+        if (response.status === 200) {
+            console.log(response.data.access_token)
+            sessionStorage.setItem('authToken', response.data.access_token)
+            // enqueueSnackbar(response.data, {variant: 'success', preventDuplicate: true,});
+            // dispatch(authorizationToken(response.data.access_token))
+
+
+            setTimeout(() => {history.push("/user/profile")}, 3000)
+            // AuthToken.token = response.data.access_token;
+        }
     };
 
     return (
