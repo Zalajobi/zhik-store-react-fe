@@ -41,11 +41,9 @@ const UserAddress = (props) => {
 			console.error(error.message);
 		}
 		setLoading(false);
-		console.log(address)
 	}
 
 	const deleteUserAddress = async (address_id) => {
-        console.log(address_id)
         const response = await handleDeleteRequest(`${BASEURL}user/address/delete`, address_id, sessionStorage.getItem('authToken'))
         if (response.status === 200) {
             enqueueSnackbar(response.data, {variant: 'error', preventDuplicate: true,});
@@ -54,15 +52,18 @@ const UserAddress = (props) => {
                 window.location.reload()
             }, 5000)
         }
-        console.log(response)
     }
 
 	const editUserAddress = async (addressId) => {
 		setEditAddress({...editAddress, addressId: addressId})
 		const response = await handlePutRequest(`${BASEURL}user/address/edit`, editAddress, sessionStorage.getItem('authToken'))
-		console.log(`Editing ${addressId}`)
-		console.log(response.data)
-		console.log(`Permanent Address ${editAddress.permAddress}`)
+		if (response.status === 200){
+			enqueueSnackbar(response.data, {variant: 'success', preventDuplicate: true,});
+
+			setTimeout(() => {
+                window.location.reload()
+            }, 5000)
+		}
 	}
 
 	return (
