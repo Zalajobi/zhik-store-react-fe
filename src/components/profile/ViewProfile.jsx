@@ -25,23 +25,13 @@ const addressBoxStyle = {
 const ViewProfile = (props) => {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const [openAddressModal, setOpenAddressModal] = React.useState(false);
-    const [newAddress, setNewAddress] = React.useState({})
+    const [newAddress, setNewAddress] = React.useState(props.user)
 
     const handleOpenAddressModal = () => setOpenAddressModal(true);
     const handleCloseAddressModal = () => setOpenAddressModal(false);
 
-    const addAddress = async (event) => {
-        const data = {
-            "country": document.getElementById("country").value,
-            "state": document.getElementById("state").value,
-            "zipCode": document.getElementById("zip_code").value,
-            "permAddress": document.getElementById("perm_address").value,
-            "houseNumber": document.getElementById("house_number").value,
-            "flatNumber": document.getElementById("flat_number").value
-        }
-        event.preventDefault();
-		const response = await handlePostRequest(data, `${BASEURL}user/address/add`, sessionStorage.getItem('authToken'))
-        console.log(response)
+    const addAddress = async () => {
+		const response = await handlePostRequest(newAddress, `${BASEURL}user/address/add`, sessionStorage.getItem('authToken'))
         enqueueSnackbar(response.data, {variant: 'success', preventDuplicate: true,});
 
          setTimeout(() => {
@@ -106,32 +96,32 @@ const ViewProfile = (props) => {
                             <div className="row my-4">
                                 <div className="col-md-6 py-2">
                                     <label className="labels">Country</label>
-                                    <input type="text" className="form-control" name="country" id="country" placeholder="Country"/>
+                                    <input type="text" className="form-control" name="country" id="country" onChange={e => {setNewAddress({...newAddress, country: e.target.value})}} placeholder="Country"/>
                                 </div>
 
                                 <div className="col-md-6 py-2">
                                     <label className="labels">State/Province</label>
-                                    <input type="text" className="form-control" name="state" id="state" placeholder="State"/>
+                                    <input type="text" className="form-control" name="state" id="state" onChange={e => {setNewAddress({...newAddress, state: e.target.value})}} placeholder="State"/>
                                 </div>
 
                                 <div className="col-md-4 py-2">
                                     <label className="labels">Zip Code</label>
-                                    <input type="text" className="form-control" name="zip_code" id="zip_code" placeholder="Zip Code"/>
+                                    <input type="text" className="form-control" name="zip_code" id="zip_code" onChange={e => {setNewAddress({...newAddress, zipCode: e.target.value})}} placeholder="Zip Code"/>
                                 </div>
 
                                 <div className="col-md-8 py-2">
                                     <label className="labels">Permanent Address</label>
-                                    <input type="text" className="form-control" name="perm_address" id="perm_address" placeholder="Permanent Address"/>
+                                    <input type="text" className="form-control" name="perm_address" id="perm_address" onChange={e => {setNewAddress({...newAddress, permAddress: e.target.value})}} placeholder="Permanent Address"/>
                                 </div>
 
                                 <div className="col-md-6 py-2">
                                     <label className="labels">House Number</label>
-                                    <input type="text" className="form-control" name="house_number" id="house_number" placeholder="House Number"/>
+                                    <input type="text" className="form-control" name="house_number" id="house_number"  onChange={e => {setNewAddress({...newAddress, houseNumber: e.target.value})}} placeholder="House Number"/>
                                 </div>
 
                                 <div className="col-md-6 py-2">
                                     <label className="labels">Flat Number</label>
-                                    <input type="text" className="form-control" name="flat_number" id="flat_number" placeholder="Flat Number"/>
+                                    <input type="text" className="form-control" name="flat_number" id="flat_number" onChange={e => {setNewAddress({...newAddress, flatNumber: e.target.value})}} placeholder="Flat Number"/>
                                 </div>
 
                                 <div className="mt-1 d-flex flex-row align-items-center justify-content-center px-3 w-100">

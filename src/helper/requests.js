@@ -41,3 +41,11 @@ export async function handleDeleteRequest(url, jsonData, authToken) {
 		}
 	})
 }
+
+export async function handlePutRequest(url, data, authToken) {
+	return await axios.put(url, data, {
+		headers: {
+			'Authorization': `Bearer ${authToken}`
+		}
+	})
+}

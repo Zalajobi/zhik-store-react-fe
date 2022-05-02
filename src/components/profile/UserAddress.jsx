@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { TreePreLoader } from "../common/preloader/PreLoader";
 import {Button, IconButton, Pagination, Stack } from "@mui/material";
-import {handleDeleteRequest, handleGetRequest} from "../../helper/requests";
+import {handleDeleteRequest, handleGetRequest, handlePostRequest, handlePutRequest} from "../../helper/requests";
 import {BASEURL} from "../../helper/constants";
 import './address.css'
 import {Delete, Edit} from "@mui/icons-material";
@@ -13,6 +13,7 @@ const UserAddress = (props) => {
 	const [maxPaginationPage, setMaxPaginationPage] = useState(0)
 	const [page, setPage] = useState(1)
 	const [loading, setLoading] = useState(true);
+	const [editAddress, setEditAddress] = useState(props.user)
 
 	useEffect(() => {
 		const fetchUserAddress = async () => {
@@ -43,7 +44,7 @@ const UserAddress = (props) => {
 		console.log(address)
 	}
 
-	async function deleteAddress(address_id) {
+	const deleteUserAddress = async (address_id) => {
         console.log(address_id)
         const response = await handleDeleteRequest(`${BASEURL}user/address/delete`, address_id, sessionStorage.getItem('authToken'))
         if (response.status === 200) {
@@ -56,6 +57,14 @@ const UserAddress = (props) => {
         console.log(response)
     }
 
+	const editUserAddress = async (addressId) => {
+		setEditAddress({...editAddress, addressId: addressId})
+		const response = await handlePutRequest(`${BASEURL}user/address/edit`, editAddress, sessionStorage.getItem('authToken'))
+		console.log(`Editing ${addressId}`)
+		console.log(response.data)
+		console.log(`Permanent Address ${editAddress.permAddress}`)
+	}
+
 	return (
         <React.Fragment>
 	        {loading && <div><TreePreLoader title="Address Loading..."/></div>}
@@ -63,41 +72,47 @@ const UserAddress = (props) => {
 	        {!loading && (
                 <div>
 	                {address.map((data, key) => {
-						return (
+		                return (
 							<div className="row my-4" key={key} >
 				                <div className="col-md-6 py-2">
 				                    <label className="labels">Country</label>
-				                    <input type="text" className="form-control" name="country" placeholder={data.country}/>
+				                    <input type="text" className="form-control" id="country" name="country" placeholder={data.country}
+				                           onChange={e => {setEditAddress({...editAddress, country: e.target.value})}}/>
 				                </div>
 
 				                <div className="col-md-6 py-2">
 				                    <label className="labels">State/Province</label>
-				                    <input type="text" className="form-control" name="state" placeholder={data.state}/>
+				                    <input type="text" className="form-control" id="state" name="state" placeholder={data.state}
+				                           onChange={e => {setEditAddress({...editAddress, state: e.target.value})}}/>
 				                </div>
 
 				                <div className="col-md-4 py-2">
 				                    <label className="labels">Zip Code</label>
-				                    <input type="text" className="form-control" name="zip_code" placeholder={data.zipCode}/>
+				                    <input type="text" className="form-control" id="zip_code" name="zip_code" placeholder={data.zipCode}
+				                           onChange={e => {setEditAddress({...editAddress, zipCode: e.target.value})}}/>
 				                </div>
 
 				                <div className="col-md-8 py-2">
 				                    <label className="labels">Permanent Address</label>
-				                    <input type="text" className="form-control" name="perm_address" placeholder={data.permAddress}/>
+				                    <input type="text" className="form-control" id="perm_address" name="perm_address" placeholder={data.permAddress}
+				                           onChange={e => {setEditAddress({...editAddress, permAddress: e.target.value})}}/>
 				                </div>
 
 				                <div className="col-md-6 py-2">
 				                    <label className="labels">House Number</label>
-				                    <input type="text" className="form-control" name="house_number" placeholder={data.houseNumber}/>
+				                    <input type="text" className="form-control" id="house_number" name="house_number" placeholder={data.houseNumber}
+				                           onChange={e => {setEditAddress({...editAddress, houseNumber: e.target.value})}}/>
 				                </div>
 
 				                <div className="col-md-6 py-2">
 				                    <label className="labels">Flat Number</label>
-				                    <input type="text" className="form-control" name="flat_number" placeholder={data.flatNumber}/>
+				                    <input type="text" className="form-control" id="flat_number" name="flat_number" placeholder={data.flatNumber}
+				                           onChange={e => {setEditAddress({...editAddress, flatNumber: e.target.value})}}/>
 				                </div>
 
 				                <div className="mt-1 d-flex flex-row align-items-center justify-content-center px-3 w-100">
-				                    <Button color="primary" onClick={() => { deleteAddress(data.id) }}><Delete color="error"/></Button>
-				                    <IconButton aria-label="edit" className="mx-3"><Edit color="primary" /></IconButton>
+				                    <Button color="error" onClick={() => { deleteUserAddress(data.id) }}><Delete color="error"/></Button>
+				                    <Button color="primary" className="mx-3" onClick={() => editUserAddress(data.id)}><Edit color="primary" /></Button>
 				                </div>
 				            </div>
 						)
