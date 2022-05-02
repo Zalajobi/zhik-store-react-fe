@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import { TreePreLoader } from "../common/preloader/PreLoader";
-import {Button, IconButton, Pagination, Stack } from "@mui/material";
-import {handleDeleteRequest, handleGetRequest, handlePostRequest, handlePutRequest} from "../../helper/requests";
-import {BASEURL} from "../../helper/constants";
-import './address.css'
+import { Button, Pagination, Stack } from "@mui/material";
+import BarWave from "react-cssfx-loading/lib/BarWave";
 import {Delete, Edit} from "@mui/icons-material";
 import {useSnackbar} from "notistack";
+import {handleDeleteRequest, handleGetRequest, handlePutRequest} from "../../helper/requests";
+import {BASEURL} from "../../helper/constants";
+import './address.css'
 
 const UserAddress = (props) => {
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -68,7 +69,22 @@ const UserAddress = (props) => {
 
 	return (
         <React.Fragment>
-	        {loading && <div><TreePreLoader title="Address Loading..."/></div>}
+	        {/*{loading && <div><TreePreLoader title="Address Loading..."/></div>}*/}
+	        {loading &&
+		        <div className="dots-preloader">
+			        <div className="dots">
+				        <div></div>
+				        <div></div>
+				        <div></div>
+				        <div></div>
+				        <div></div>
+				        <div></div>
+				        <div></div>
+				        <div></div>
+				        <div></div>
+			        </div>
+		        </div>
+			}
 
 	        {!loading && (
                 <div>
