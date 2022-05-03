@@ -1,8 +1,6 @@
 import React from 'react'
 import { Fab } from "@mui/material";
 import { Image, AddPhotoAlternateOutlined } from '@mui/icons-material';
-// import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
-// import ImageIcon from '@mui/icons-material/Image';
 
 export const MaterialImageUpload = (props) => {
 	return (

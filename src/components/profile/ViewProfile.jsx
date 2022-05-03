@@ -1,13 +1,12 @@
-import React, {useState} from 'react'
-import {Box, Button, IconButton, Modal, Typography} from "@mui/material";
-import {Add, Delete, Edit} from "@mui/icons-material";
-import {toast} from "react-toastify";
-import {handleDeleteRequest, handlePostRequest} from "../../helper/requests";
+import React from 'react'
+import {Box, Button, IconButton, Modal} from "@mui/material";
+import { Add } from "@mui/icons-material";
+import { handlePostRequest } from "../../helper/requests";
 import {BASEURL} from "../../helper/constants";
 import { useSnackbar } from 'notistack'
 import { IKImage, IKContext, IKUpload } from "imagekitio-react";
-import { MaterialImageUpload } from "../common/MaterialDesignComponents";
 import UserAddress from "./UserAddress";
+import {UploadSingleImage} from "../common/UploadFile";
 
 
 const addressBoxStyle = {
@@ -45,11 +44,9 @@ const ViewProfile = (props) => {
                 <div className="row">
                     <div className="col-md-3 border-right">
                         <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                            <img className="rounded-circle mt-5" width="150px" src={props.userProfileDetails.profilePicture} alt="Profile Image"/>
+                            <img className="rounded-circle mt-5" width="175px" height="200px" src={props.userProfileDetails.profilePicture} alt="Profile Image"/>
 
-                            <div className="my-2">
-                                <MaterialImageUpload/>
-                            </div>
+                            <UploadSingleImage uploadURL={`${BASEURL}user/profile/picture/upload`} />
                             <span className="text-black-50">{props.userProfileDetails.email}</span>
                         </div>
                     </div>
